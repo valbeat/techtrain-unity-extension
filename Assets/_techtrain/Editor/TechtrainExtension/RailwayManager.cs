@@ -16,15 +16,11 @@ namespace TechtrainExtension
         private Api.Client apiClient;
         private Api.Models.v3.Railway? apiRailway;
 
-        private bool isUserPaid;
-
-
-        public RailwayManager(Api.Client _apiClient, bool _isUserPaid)
+        public RailwayManager(Api.Client _apiClient)
         {
             manifestsManager = new Manifests.Manager();
             manifestRailway = manifestsManager.GetRailway();
             apiClient = _apiClient;
-            isUserPaid = _isUserPaid;
         }
 
         public async Task<bool> Initialize()
@@ -97,19 +93,6 @@ namespace TechtrainExtension
                 }
             }
             return null;
-        }
-
-        public bool IsStationPermitted(RailwayStation station)
-        {
-            if (apiRailway == null)
-            {
-                return false;
-            }
-            if (station.access_level == RailwayStationAccessLevel.free)
-            {
-                return true;
-            }
-            return isUserPaid;
         }
 
         public Station? GetCurrentStationManifest()

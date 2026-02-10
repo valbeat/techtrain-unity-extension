@@ -72,7 +72,7 @@ namespace TechtrainExtension
 
                 try
                 {
-                    railwayManager = new RailwayManager(apiClient, user.data.is_paid);
+                    railwayManager = new RailwayManager(apiClient);
                 }
                 catch (System.Exception e)
                 {
@@ -110,11 +110,6 @@ namespace TechtrainExtension
                 if (currentStation.confirmation_method != Api.Models.v3.RailwayStationConfirmationMethod.unit_test)
                 {
                     root.Add(new Label("このStationは自動テストではないためUnity上でクリア判定が行えません。ブラウザ上から判定を行ってください"));
-                    return;
-                }
-                if (!railwayManager.IsStationPermitted(currentStation))
-                {
-                    root.Add(new Label("続きに挑戦するには、有料プランへの登録が必要です。"));
                     return;
                 }
                 var manifestStation = railwayManager.GetCurrentStationManifest();
